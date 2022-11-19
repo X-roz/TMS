@@ -2,6 +2,7 @@ package auth
 
 import (
 	"errors"
+	"fmt"
 	"time"
 	"truck-management-service/util/response"
 
@@ -35,7 +36,7 @@ func GenerateAuth(userId string) string {
 	return t
 }
 
-func AuthVerification(token string) bool {
+func AuthVerification(token string) (jwt.Claims, bool) {
 
 	t, err := jwt.ParseWithClaims(token, &Myclaims{}, func(token *jwt.Token) (interface{}, error) {
 
@@ -47,10 +48,10 @@ func AuthVerification(token string) bool {
 
 	})
 	if err != nil {
-		return false
+		return nil, false
 	}
 
-	return t.Valid
+	return t.Claims, t.Valid
 
 }
 
@@ -67,8 +68,9 @@ func VerifyToken(next echo.HandlerFunc) echo.HandlerFunc {
 				AuthToken = value[0]
 			}
 		}
-
-		if verify := AuthVerification(AuthToken); !verify {
+		claims, verify := AuthVerification(AuthToken)
+		fmt.Println(claims)
+		if !verify {
 			logger.Error("[VerifyToken]", "Token Verification Error :", "Token invalid or expired")
 			return response.RespErr(c, "Token Verification Error :", errors.New("token invalid or expired"))
 		}
