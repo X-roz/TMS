@@ -1,0 +1,59 @@
+.contentLogin {
+    font-family: Bradley Hand, cursive;
+    margin: 40px auto;
+    padding-top: 10px;
+    padding-bottom: 7px;
+    text-align: center;
+    max-width: 350px;
+    border: #8fdcf3;
+  }
+
+  .contentLogin label {
+    text-align: left;
+    display: block;
+  }
+  .contentLogin h2 {
+    font-size: 20px;
+    color: #181617;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .contentLogin input {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 2.5px solid rgb(32, 30, 30);
+    box-sizing: border-box;
+    display: block;
+  }
+
+  .contentLogin button {
+    background: #bde3ee;
+    color: black;
+    padding: 9px;
+    border-radius: 9px;
+    cursor: pointer;
+  }
+
+  .register-button {
+    font-family: Bradley Hand, cursive;
+    text-align: center;
+  }
+
+  .register-button button{
+    background: #bde3ee;
+    color: black;
+    padding: 9px;
+    border-radius: 9px;
+    cursor: pointer;
+  }
+
+
+.errCheck{
+  font-family: Bradley Hand, cursive;
+  color: red;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 30px ;
+}

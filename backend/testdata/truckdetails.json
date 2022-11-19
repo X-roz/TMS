@@ -1,0 +1,10 @@
+{"truck_no":"KA01AK5211",
+"owner_name":"vicky",
+"owner_email":"OwnerEmail",
+"owner_no":"OwnerNo",
+"engine_no": "EngineNo",
+"truck_delivery_date":"TrDeliveryDate",
+"insurance_date": "InsuranceDate",
+"emi_date": "EmiDate",
+"emi_amount": "EmiAmount",
+"emi_duration":"EmiDuration"}

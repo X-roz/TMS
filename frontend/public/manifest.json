@@ -1,0 +1,15 @@
+{
+  "short_name": "TMS",
+  "name": "Truck-Management-Service",
+  "icons": [
+    {
+      "src": "tms.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
