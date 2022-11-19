@@ -33,7 +33,6 @@ const EntryPage = ()=>{
       }).then((res)=>{
         if(res.data.Success){
           Cookies.set("access_token",res.data.Data["access_token"])
-          Cookies.set("user_id",res.data.Data["user_id"])
           navigate("/show-truck");
         }else{
           setLoginErrMsg(res.data.ErrData)

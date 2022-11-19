@@ -11,7 +11,7 @@ const ShowTruck = ()=>{
     const [apiCallDone,setApiCallDone]=useState(false)
     useEffect(()=>{
         if (!apiCallDone){
-           axios.get("http://localhost:9000/tms/user/user-details?user_id="+Cookies.get("user_id"))
+           axios.get("http://localhost:9000/tms/user/user-details")
            .then((res)=>{
             if (res.data.Success){
                 console.log(res.data.Data)

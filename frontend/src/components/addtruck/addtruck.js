@@ -36,11 +36,11 @@ const AddTruck= () =>{
     const emiHandler =(val) =>{
         setEmiStatus(val)
     }
-    let user_id = Cookies.get("user_id")
+
     const handleSubmit =(e)=>{
         e.preventDefault();
         SetLoadingStatus(0)
-        const TruckDetails = {"User_id":user_id,"truck_no":TruckNo,
+        const TruckDetails = {"truck_no":TruckNo,
                             "engine_no": EngineNo,
                             "truck_delivery_date":TrDeliveryDate,
                             "fc_date":FcDate,
@@ -135,11 +135,10 @@ const AddTruck= () =>{
                     <div>{
                         EmiStatus === 1?<div id="emi-details">
                                 <label>Emi Date</label>
-                                <input 
-                                    type="text" 
-                                    required        
-                                    value = {EmiDate }
-                                    onChange = { (e)=>setEmiDate(e.target.value)}
+                                <DatePicker
+                                    selected={ EmiDate }
+                                    onChange={(date)=>{setEmiDate(date)}}
+                                    dateFormat="dd-MM-yyyy"
                                 />
                                 <label>Emi Amount</label>
                                 <input 
@@ -195,9 +194,7 @@ const AddTruck= () =>{
                         type="file" 
                         onChange={(e)=>setQuaterTax(e.target.files[0])}
                     />
-                <br />
-                <br />
-              
+                
                 <Popup
                     trigger={<button id="submitbutton">AddTruck</button>}
                     modal
@@ -215,8 +212,7 @@ const AddTruck= () =>{
                 </Popup>
               
                 </div> 
-            </form>
-            
+            </form>    
         </div>
         </div>
     );

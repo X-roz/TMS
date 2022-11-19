@@ -1,8 +1,9 @@
 package auth
 
 import (
+	"context"
+	"encoding/json"
 	"errors"
-	"fmt"
 	"time"
 	"truck-management-service/util/response"
 
@@ -68,12 +69,15 @@ func VerifyToken(next echo.HandlerFunc) echo.HandlerFunc {
 				AuthToken = value[0]
 			}
 		}
+		var data Myclaims
 		claims, verify := AuthVerification(AuthToken)
-		fmt.Println(claims)
+		claimByte, _ := json.Marshal(claims)
+		json.Unmarshal(claimByte, &data)
 		if !verify {
 			logger.Error("[VerifyToken]", "Token Verification Error :", "Token invalid or expired")
 			return response.RespErr(c, "Token Verification Error :", errors.New("token invalid or expired"))
 		}
+		c.SetRequest(c.Request().WithContext(context.WithValue(c.Request().Context(), "UserId", data.UserId)))
 
 		logger.Info("Token Verified")
 		return next(c)

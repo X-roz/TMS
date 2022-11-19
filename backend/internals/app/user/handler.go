@@ -53,7 +53,7 @@ func (h *handler) LoginUser(e echo.Context) error {
 
 func (h *handler) GetUserDetails(e echo.Context) error {
 
-	userId := e.QueryParam("user_id")
+	userId := e.Request().Context().Value("UserId").(string)
 	logger.Info("[GetUserDetails]", "user id :", userId)
 
 	ud, err := h.service.GetUD(userId)

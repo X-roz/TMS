@@ -2,6 +2,7 @@ package truck
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"truck-management-service/internals/model"
@@ -23,6 +24,11 @@ func (h *handler) AddTruckDetails(c echo.Context) error {
 
 	logger.Info("[AddTruckDetails]", "Adding truck details started")
 
+	userId := c.Request().Context().Value("UserId").(string)
+	if userId == "" {
+		logger.Error("[AddTruckDetails]", "Invalid User ID")
+		return response.RespErr(c, "Invalid User ID", errors.New("invalid User ID"))
+	}
 	td := new(model.Truckdetails)
 
 	// get the truck details from the document file and store in td struct
@@ -35,7 +41,7 @@ func (h *handler) AddTruckDetails(c echo.Context) error {
 	fileSorce, _ := f.Open()
 	docbyte, _ := ioutil.ReadAll(fileSorce)
 	json.Unmarshal(docbyte, td)
-
+	td.User_id = userId
 	// verify the truck number. if exists error
 	_, err = h.service.GetTD(td.TruckNo)
 	if err == nil {

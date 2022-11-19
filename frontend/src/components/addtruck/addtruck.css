@@ -5,14 +5,12 @@
     padding-top: 30px;
     padding-bottom: 10px;
     padding-left: 25px;
-    background-color: rgb(244, 246, 247);
 }
 
 #addtruck-top h2{
     text-transform: uppercase;
     display: flex;
     font-size: 22.5px;
-    padding-top: 0%;
     padding-right: 40%;
     padding-bottom: 2%;
     color: rgb(24, 21, 21);
@@ -79,7 +77,6 @@
   padding-left: 18px;
   padding-right: 19px;
   text-align: center;
-  width: 100px;
   display:flex;
 }
 
