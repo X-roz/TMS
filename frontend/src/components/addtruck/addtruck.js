@@ -8,7 +8,7 @@ import Popup from 'reactjs-popup';
 import { useNavigate } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from 'js-cookie'
-axios.defaults.headers.common['Authorization'] = Cookies.get("access_token")
+
 
 const AddTruck= () =>{
 
@@ -60,6 +60,7 @@ const AddTruck= () =>{
         formData.append("QuaterTax",QuaterTax)
         formData.append("truckdetailsdoc",blob)
 
+        axios.defaults.headers.common['Authorization'] = Cookies.get("access_token")
         axios.post("http://localhost:9000/tms/truck/add-truck-details", formData, {
             headers: {
               "Content-Type": "multipart/form-data"

@@ -3,14 +3,16 @@ import { useEffect,useState } from "react";
 import Sidebar from "../../containers/sidebar/sidebar";
 import "./showtruck.css"
 import Cookies from 'js-cookie'
-axios.defaults.headers.common['Authorization'] = Cookies.get("access_token")
+
 
 const ShowTruck = ()=>{
     
     const [data,setData]=useState([])
     const [apiCallDone,setApiCallDone]=useState(false)
+    // const [dataCheck, setDataCheck]=useState(false)
     useEffect(()=>{
         if (!apiCallDone){
+           axios.defaults.headers.common['Authorization'] = Cookies.get("access_token")
            axios.get("http://localhost:9000/tms/user/user-details")
            .then((res)=>{
             if (res.data.Success){
@@ -26,6 +28,11 @@ const ShowTruck = ()=>{
 
     })
 
+    const handleTruckDetailsbutton=(truck_no, e)=>{
+        e.preventDefault()
+        console.log(truck_no)
+    }
+    
     return(
         <div className="main-container">
             <Sidebar />
@@ -37,7 +44,7 @@ const ShowTruck = ()=>{
             {data.map((truck,index) =>(
                 <div className="truck-preview">
                     <div  key={truck.truck_no}>
-                        <button>{ truck.truck_no }</button>
+                        <button onClick={(e) => handleTruckDetailsbutton(truck.truck_no, e)}>{ truck.truck_no }</button>
                     </div>
                 </div>
             )
