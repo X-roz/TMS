@@ -1,6 +1,7 @@
 import FaceIcon from '@mui/icons-material/Face';
 import HomeIcon from '@mui/icons-material/Home';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 const SidebarData =[
     {
@@ -9,7 +10,7 @@ const SidebarData =[
         link:""
     },
     {
-        title:"Home",
+        title:"Trucks",
         icon:<HomeIcon />,
         link:"/show-truck"
     },
@@ -17,6 +18,11 @@ const SidebarData =[
         title:"Add Truck",
         icon:<LocalShippingIcon />,
         link:"/add-truck"
+    },
+    {
+        title:"Invoice",
+        icon:<NoteAddIcon />,
+        link:""
     }
 ]
 

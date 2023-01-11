@@ -15,11 +15,24 @@
 
 #showtruck-top h2{
     text-transform: uppercase;
-    display: flex;
     font-size: 22.5px;
     padding-bottom: 3%;
+    padding-right: 20%;
     color: rgb(24, 21, 21);
     border-bottom: 3.5px solid rgb(215, 224, 228);
+}
+
+#showtruck-top button{
+    font-family: Bradley Hand, cursive;
+    border-radius: 10%; 
+    text-align: center;
+    cursor: pointer;
+    float: right;
+    background-color:#dbd6d6 ;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
 }
 
 .content{   

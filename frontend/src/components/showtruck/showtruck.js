@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect,useState } from "react";
+import { useNavigate } from "react-router";
 import Sidebar from "../../containers/sidebar/sidebar";
 import "./showtruck.css"
 import Cookies from 'js-cookie'
 
 
 const ShowTruck = ()=>{
-    
+
+    const navigate =useNavigate();
+
     const [data,setData]=useState([])
     const [apiCallDone,setApiCallDone]=useState(false)
     // const [dataCheck, setDataCheck]=useState(false)
@@ -32,13 +35,17 @@ const ShowTruck = ()=>{
         e.preventDefault()
         console.log(truck_no)
     }
+
+    const handleAddTruckButton = ()=>{
+        navigate("/add-truck");
+    }
     
     return(
         <div className="main-container">
             <Sidebar />
             <div className="showtruck">
             <div id="showtruck-top">
-                <h2>Truck Details</h2>
+                <h2>Truck Details <button onClick={handleAddTruckButton}>Add Truck</button></h2>
             </div>  
             <div className="content">
             {data.map((truck,index) =>(
