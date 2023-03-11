@@ -81,3 +81,16 @@ func (h *handler) GetTruckDetails(c echo.Context) error {
 	logger.Info("[GetTruckDetails]", "Successfully fetched details of "+truckno)
 	return response.RespSuccessInfo(c, "Truck Details Fetched successfully", *td)
 }
+
+func (h *handler) GetFileLink(c echo.Context) error {
+
+	fileId := c.QueryParam("file_id")
+	logger.Info("[GetFileDetails]", "started fetching details of "+fileId)
+	link, err := GetFileViewLink(fileId)
+	if err != nil {
+		logger.Error("[GetFileDetails]", "Error in Fetching file details :", err)
+		return response.RespErr(c, "Error in Fetching truck details", err)
+	}
+	logger.Info("[GetFileDetails]", "Successfully fetched details of "+fileId)
+	return response.RespSuccessInfo(c, "Truck Details Fetched successfully", link)
+}

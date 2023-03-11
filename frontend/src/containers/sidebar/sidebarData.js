@@ -10,7 +10,7 @@ const SidebarData =[
         link:""
     },
     {
-        title:"Trucks",
+        title:"Home",
         icon:<HomeIcon />,
         link:"/show-truck"
     },

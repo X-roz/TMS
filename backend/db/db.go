@@ -39,6 +39,8 @@ func ConnectToDb() {
 	if *migrateflag {
 		Db.AutoMigrate(&model.Truckdetails{})
 		Db.AutoMigrate(&model.User{})
+		Db.AutoMigrate(&model.Office{})
+		Db.AutoMigrate(&model.Driver{})
 	}
 }
 

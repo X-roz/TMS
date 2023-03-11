@@ -18,10 +18,13 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
+    "react-loading": "^2.0.3",
+    "react-paginate": "^8.1.4",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "reactjs-popup": "^2.0.5",
+    "string": "^3.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

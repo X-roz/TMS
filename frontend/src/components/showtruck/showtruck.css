@@ -13,13 +13,27 @@
     padding-left: 30px;
 }
 
+
 #showtruck-top h2{
     text-transform: uppercase;
     font-size: 22.5px;
     padding-bottom: 3%;
-    padding-right: 20%;
+    padding-right: 10%;
     color: rgb(24, 21, 21);
     border-bottom: 3.5px solid rgb(215, 224, 228);
+}
+#showtruck-top p{
+    float: right;
+}
+
+
+#showtruck-top input{
+    float: right;
+    border: 2.5px solid black;
+    padding:7px;
+    height: 26px;
+    border-radius: 5px 5px 5px 5px;
+    color: #0a0a0a;
 }
 
 #showtruck-top button{
@@ -41,18 +55,12 @@
     flex-wrap: wrap;
 }
 
-.truck-preview{
-    width: 25%;
-    display: flex;
-    justify-content: center;
+#nodata p{
+    text-transform: capitalize;
+    font-size: 22.5px;
 }
 
-
-/* .truck-preview #count{
-    display: none;
-} */
-
-.truck-preview button{
+#nodata button{
     font-family: Bradley Hand, cursive;
     font-size: 12.5px;
     cursor: pointer;
@@ -61,7 +69,63 @@
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
+    border-radius: 10%; 
+    text-align: center;
+}
+
+.truck-preview{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.truck-preview p{
+    text-align: left;
+}
+
+#inner-button{
+    background-color:#dbd6d6;
+    border-radius:5px;
+    text-align:"center";
+    padding-left:"6px";
+    padding-bottom:"0px";
+    padding-top:"0px";
+    padding-right:"6px";
+    margin:"0px";
+    cursor:"pointer";
+}
+
+#outer-button{
+    font-family: Bradley Hand, cursive;
+    font-size: 14.5px;
+    background-color:#8fdcf3 ;
+    padding-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+    border-radius: 5%;    
+    margin: 35px 0;
+}
+
+.show-preview{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.show-preview p{
+    text-align: left;
+}
+
+.show-preview button{
+    font-family: Bradley Hand, cursive;
+    font-size: 12.5px;
+    cursor: pointer;
+    background-color:#8fdcf3 ;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 40px;
+    padding-bottom: 20px;
     border-radius: 10%;    
     margin: 35px 0;
-    text-align: center;
 }

@@ -42,7 +42,7 @@ func FileUpload(c echo.Context, truckno string) (map[string]string, error) {
 			logger.Error("[FileUpload]", "Error in uploading file "+filename+" :", err)
 			return nil, err
 		}
-		FileDetails[filename] = filepath + folderId + "/" + fileId
+		FileDetails[filename] = filepath + fileId
 	}
 
 	logger.Info("[FileUpload]", "Successfully Truck files are uploaded")
@@ -66,4 +66,20 @@ func CreateFile(srv *drive.Service, filename string, fileSrv multipart.File, fol
 	}
 
 	return file.Id, nil
+}
+
+func GetFileViewLink(fileId string) (string, error) {
+
+	client := gdrive.ServiceAccount("../secrets/client_secret.json")
+
+	srv, err := drive.New(client)
+	if err != nil {
+		return "", err
+	}
+
+	link, err := gdrive.GetFileViewLink(srv, fileId)
+	if err != nil {
+		return "", err
+	}
+	return link, nil
 }

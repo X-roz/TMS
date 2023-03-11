@@ -67,3 +67,15 @@ func CreateFile(service *drive.Service, name string, mimeType string, content io
 
 	return file, nil
 }
+
+func GetFileViewLink(d *drive.Service, fileId string) (string, error) {
+
+	fileGetCall := d.Files.Get(fileId)
+	req := fileGetCall.Fields("webViewLink")
+	f, err := req.Do()
+	if err != nil {
+		return "", err
+	}
+
+	return f.WebViewLink, nil
+}

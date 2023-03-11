@@ -27,7 +27,7 @@ func (h *handler) NewUser(e echo.Context) error {
 	u.UserId = uuid.NewString()
 
 	token := auth.GenerateAuth(u.UserId)
-
+	logger.Info("[LoginUser]", "Access Token :", token)
 	err := h.service.NewUser(u)
 	if err != nil {
 		logger.Error("[NewUser]", "Error in adding new user :", err)
@@ -48,6 +48,7 @@ func (h *handler) LoginUser(e echo.Context) error {
 
 	logger.Info("[LoginUser]", "user logged in successfully :", user.UserId)
 	token := auth.GenerateAuth(user.UserId)
+	logger.Info("[LoginUser]", "Access Token :", token)
 	return response.RespSuccessInfo(e, "logged in successfully", map[string]string{"access_token": token, "user_id": user.UserId})
 }
 
