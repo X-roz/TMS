@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import "./addtruck.css"
+import "./add.css"
 import Sidebar from "../../containers/sidebar/sidebar";
 import DatePicker from 'react-datepicker';
 import axios from "axios";
@@ -88,15 +88,14 @@ const Add= () =>{
     );
 }
 
-
 function AddOffice(){
 
     const navigate =useNavigate();
 
-    const [OfficeName,setOfficeName] =useState()
+    const [OfficeName,setOfficeName] =useState("")
     const [officeDetails, setofficeDetails] = useState([])
-    const [name, setName] = useState()
-    const [phoneNo, setPhoneNo] = useState()
+    const [name, setName] = useState("")
+    const [phoneNo, setPhoneNo] = useState("")
 
     const [show, setShow] = useState(false)
     const [loadingStatus,SetLoadingStatus] = useState(2)
@@ -107,6 +106,14 @@ function AddOffice(){
         })
         setName("")
         setPhoneNo("")
+    }
+
+    function validateForm(){
+        return (
+                OfficeName.length > 0 &&
+                name.length > 0 &&
+                phoneNo.length > 0
+            )
     }
 
     const addOfficeButton = (e)=>{
@@ -148,33 +155,42 @@ function AddOffice(){
 
     return (
         <div className="office-content">
-            <label>Office Name </label>
+            <label>Office Name *</label>
                 <input 
                     type="text"
                     required        
                     value={OfficeName}
                     onChange = {(e)=>setOfficeName(e.target.value)}
                 />
-            <label>Person Name </label>
+            <label>Person Name *</label>
                 <input 
                     type="text"
                     required        
                     value={name}
                     onChange = {(e)=>setName(e.target.value)}
                 />
-            <label>Contact Number </label>
+            <label>Contact Number *</label>
                 <input 
                     type="text"
+                    minLength={10}
                     maxLength={10}
                     required        
                     value={phoneNo}
-                    onChange = {(e)=>setPhoneNo(e.target.value)}
+                    onChange = {(e)=>setPhoneNo(e.target.value.replace(/[a-zA-Z]/g,''))}
                 />
             <br/>
-            <button onClick={handleAddtionalContact}> <AddIcCallIcon style={{fontSize: 16 }}/>  &nbsp;&nbsp; Add addtional Contact</button>
+            <button 
+                title={(!validateForm())?"please add the contacts details and try this":"if you want to add additional contact details. Click this and enter new contact details"} 
+                style={(!validateForm())?{cursor:"not-allowed"}:{}} 
+                disabled={!validateForm()}
+                onClick={handleAddtionalContact}> <AddIcCallIcon style={{fontSize: 16 }}/>  &nbsp;&nbsp; Add addtional Contact</button>
             <br/>
             <br/>
-            <button onClick={addOfficeButton}>Submit</button>
+            <button
+                title={(!validateForm())?"fill all the required(*) details correctly":""} 
+                style={(!validateForm())?{cursor:"not-allowed"}:{}} 
+                disabled={!validateForm()} 
+                onClick={addOfficeButton}>Submit</button>
             {loadingStatus === 0 ?
                 <div class="overlay"> <p style={{position: "fixed", top: "5%", left: "50%"}}>
                     <ReactLoading type="spokes" color="#dd638c" height={100} width={50} />Loading
@@ -208,6 +224,17 @@ function AddDriver(){
     const [show, setShow] = useState(false)
     const [loadingStatus,SetLoadingStatus] = useState(2)
     
+
+    function validateForm(){
+        return (
+            Name.length > 0 &&
+            PhoneNumber.length > 0 &&
+            Address.length > 0 &&
+            Ifsc.length > 0 &&
+            License !== null
+        )
+    }
+
     const handleClick = ()=>{
         SetLoadingStatus(0)
         const ReqData = {
@@ -258,22 +285,23 @@ function AddDriver(){
     return (
         <div className="driver-content">
             <div id="left-box">
-                <label>Name</label>
+                <label>Name *</label>
                     <input
                         type="text"
                         required        
                         value={Name}
                         onChange = {(e)=>setName(e.target.value)}
                     />
-                <label>PhoneNumber</label>
+                <label>PhoneNumber *</label>
                     <input 
                         type="text"
                         maxLength={10}
-                        required        
+                        minLength={10}
+                        required      
                         value={PhoneNumber}
-                        onChange = {(e)=>setPhoneNumber(e.target.value)}
+                        onChange = {(e)=>setPhoneNumber(e.target.value.replace(/[a-zA-Z]/g,''))}
                     />
-                <label>Address</label>
+                <label>Address *</label>
                     <input 
                         type="text"
                         required        
@@ -282,28 +310,33 @@ function AddDriver(){
                     />
             </div>
             <div id="center-box">
-                <label>Account Number</label>
+                <label>Account Number *</label>
                     <input 
                         type="text"
                         required        
                         value={AccountNumber}
-                        onChange = {(e)=>setAccountNumber(e.target.value)}
+                        onChange = {(e)=>setAccountNumber(e.target.value.replace(/[a-zA-Z]/g,''))}
                     />
-                <label>IFSC code</label>
+                <label>IFSC code *</label>
                     <input 
                         type="text"
                         required        
                         value={Ifsc}
                         onChange = {(e)=>setIfsc(e.target.value)}
                     />
-                <label>License</label>
+                <label>License *</label>
                     <input 
                         required
                         type="file"
                         onChange={(e)=>setLicense(e.target.files[0])}
                     />
             </div>
-            <button onClick={handleClick}>Submit</button>
+            <button 
+                title={(!validateForm())?"fill all the required(*) details correctly":""} 
+                style={(!validateForm())?{cursor:"not-allowed"}:{}} 
+                disabled={!validateForm()}
+                onClick={handleClick}
+            >Submit</button>
             {loadingStatus === 0 ?
                 <div class="overlay"> <p style={{position: "fixed", top: "5%", left: "50%"}}>
                     <ReactLoading type="spokes" color="#dd638c" height={100} width={50} />Loading
@@ -345,6 +378,31 @@ function AddTruck(){
 
     const emiHandler =(val) =>{
         setEmiStatus(val)
+    }
+
+    function validateForm() { 
+ 
+        if (TruckNo.length > 9 &&(TruckNo.match(/[0-9]/g).length) !== 6){
+            return false
+        }
+
+        if (EmiStatus && !(EmiAmount.length > 0 && EmiDate!== "" && EmiDuration.length > 0 )) {
+            return false
+        }
+
+        return ((    
+            TruckNo.length > 0 && 
+            EngineNo.length > 0 &&
+            TrDeliveryDate !== "" &&
+            FcDate !== "" &&
+            InsuranceDate !== "" &&
+            Insurance!== null &&
+            TruckRc !== null &&
+            NpPermit !== null &&
+            NpTax !== null &&
+            QuaterTax !== null
+        ))
+
     }
 
     const handleSubmit =(e)=>{
@@ -403,7 +461,7 @@ function AddTruck(){
         <>
         <div className="driver-content">
             <div id="left-box">
-                <label>Truck No </label>
+                <label>Truck No *</label>
                     <input 
                         type="text"
                         minLength={9}
@@ -412,105 +470,111 @@ function AddTruck(){
                         value = { TruckNo }
                         onChange = { (e)=>setTruckNo(e.target.value.toUpperCase().replace(/\s/g, ''))}
                     />
-                <label>Engine Number</label>
+                <label>Engine Number *</label>
                     <input 
                         type="text" 
                         required        
                         value = { EngineNo }
                         onChange = { (e)=>setEngineNo(e.target.value)}
                     />
-                <label>Truck's Delivery Date</label>
+                <label>Truck's Delivery Date *</label>
                     <DatePicker
                         selected={ TrDeliveryDate }
                         onChange={(date)=>{setTrDeliveryDate(date)}}
                         dateFormat="dd-MM-yyyy"
                     />
-                <label>Truck's Fc Date</label>
+                <label>Truck's Fc Date *</label>
                     <DatePicker
                         selected={ FcDate }
                         onChange={(date)=>{setFcDate(date)}}
                         dateFormat="dd-MM-yyyy"
-                    />
-                <label>Insurance Date ("DD-MM-YYYY")</label>
-                    <DatePicker
-                        selected={ InsuranceDate }
-                            onChange={(date)=>{setInsuranceDate(date)}}
-                            dateFormat="dd-MM-yyyy"
-                    />
-                <label>Insurance Paper</label>
-                    <input  
-                        type="file"
-                            required 
-                        onChange={(e)=>setInsurance(e.target.files[0])}
-                    />
-            </div>
-            <div id="center-box">
-                <label>Truck's RC</label>
-                    <input 
-                        required
-                            type="file"
-                        onChange={(e)=>setTruckRc(e.target.files[0])}
-                    />
-                <label>National Permit50</label>
-                    <input 
-                        required
-                            type="file" 
-                        onChange={(e)=>setNpPermit(e.target.files[0])}
-                    />
-                <label>National tax form</label>
-                    <input 
-                        required
-                            type="file" 
-                        onChange={(e)=>setNpTax(e.target.files[0])}
-                    />
-                <label>Quater tax form</label>
-                    <input 
-                        required
-                            type="file" 
-                        onChange={(e)=>setQuaterTax(e.target.files[0])}
                     />
                 <label>Is Emi</label>
                 <button  id="emibutton" onClick={(e) => emiHandler(1)}> yes </button>
                 <button  id="emibutton" onClick={(e) => emiHandler(0)}> no  </button>
                 <div>{
                     EmiStatus === 1?<div id="emi-details">
-                            <label>Emi Date</label>
+                            <label>Emi Date *</label>
                             <DatePicker
                                 selected={ EmiDate }
                                 onChange={(date)=>{setEmiDate(date)}}
                                 dateFormat="dd-MM-yyyy"
                             />
-                            <label>Emi Amount</label>
+                            <label>Emi Amount *</label>
                             <input 
                                 type="text" 
                                 required        
                                 value = {EmiAmount }
-                                onChange = { (e)=>setEmiAmount(e.target.value)}
+                                onChange = { (e)=>setEmiAmount(e.target.value.replace(/[a-zA-Z]/g,''))}
                             />
-                            <label>Emi Duration</label>
+                            <label>Emi Duration * (months only)</label>
                             <input 
                                 type="text" 
                                 required        
                                 value = {EmiDuration }
-                                onChange = { (e)=>setEmiduration(e.target.value)}
+                                onChange = { (e)=>setEmiduration(e.target.value.replace(/[a-zA-Z]/g,''))}
                             />
-                    </div>:<p></p>
+                    </div>:<></>
                 }</div>
             </div>
-            <button onClick={handleSubmit}>Submit</button>
-            {loadingStatus === 0 ?
-                <div class="overlay"> <p style={{position: "fixed", top: "5%", left: "50%"}}>
-                    <ReactLoading type="spokes" color="#dd638c" height={100} width={50} />Loading
-                </p> </div>
-                :<>
-                {loadingStatus === 1 ?
-                    <>    
-                    {show ? <div class="overlay"> <p><ErrorIcon style={{fontSize:"60px",color:"rgb(224, 65, 65)", textAlign:"center"}}/><br/>Something went wrong <br/> <br/> <button onClick={handleReload} style={{backgroundColor:"rgb(224, 65, 65)",marginRight:"25%"}}>Reload</button></p> </div> : 
-                    <div class="overlay"> <p><TaskAltIcon style={{fontSize:"60px",color:"rgb(44, 137, 44)", textAlign:"center"}}/><br/> Driver Details Done Successfully <br/><br/> <button onClick={handleDone} style={{backgroundColor:"rgb(44, 137, 44)",marginRight:"25%"}}>Done</button></p> </div>}
+            <div id="center-box">
+                
+                <label>Truck's RC *</label>
+                    <input 
+                        required
+                            type="file"
+                        onChange={(e)=>setTruckRc(e.target.files[0])}
+                    />
+                <label>National Permit50 *</label>
+                    <input 
+                        required
+                            type="file" 
+                        onChange={(e)=>setNpPermit(e.target.files[0])}
+                    />
+                <label>National tax form *</label>
+                    <input 
+                        required
+                            type="file" 
+                        onChange={(e)=>setNpTax(e.target.files[0])}
+                    />
+                <label>Quater tax form *</label>
+                    <input 
+                        required
+                            type="file" 
+                        onChange={(e)=>setQuaterTax(e.target.files[0])}
+                    />
+                <label>Insurance Date *</label>
+                    <DatePicker
+                        selected={ InsuranceDate }
+                            onChange={(date)=>{setInsuranceDate(date)}}
+                            dateFormat="dd-MM-yyyy"
+                    />
+                <label>Insurance Paper *</label>
+                    <input  
+                        type="file"
+                            required 
+                        onChange={(e)=>setInsurance(e.target.files[0])}
+                    />
+                <button 
+                    title={(!validateForm())?"fill all the required(*) details correctly":""} 
+                    style={(!validateForm())?{cursor:"not-allowed"}:{}} 
+                    disabled={!validateForm()} 
+                    onClick={handleSubmit}
+                >Submit</button>
+                {loadingStatus === 0 ?
+                    <div class="overlay"> <p style={{position: "fixed", top: "5%", left: "50%"}}>
+                        <ReactLoading type="spokes" color="#dd638c" height={100} width={50} />Loading
+                    </p> </div>
+                    :<>
+                    {loadingStatus === 1 ?
+                        <>    
+                        {show ? <div class="overlay"> <p><ErrorIcon style={{fontSize:"60px",color:"rgb(224, 65, 65)", textAlign:"center"}}/><br/>Something went wrong <br/> <br/> <button onClick={handleReload} style={{backgroundColor:"rgb(224, 65, 65)",marginRight:"25%"}}>Reload</button></p> </div> : 
+                        <div class="overlay"> <p><TaskAltIcon style={{fontSize:"60px",color:"rgb(44, 137, 44)", textAlign:"center"}}/><br/> Driver Details Done Successfully <br/><br/> <button onClick={handleDone} style={{backgroundColor:"rgb(44, 137, 44)",marginRight:"25%"}}>Done</button></p> </div>}
+                        </>
+                    :null}
                     </>
-                :null}
-                </>
-            }
+                }
+            </div>
         </div>
         </>
 

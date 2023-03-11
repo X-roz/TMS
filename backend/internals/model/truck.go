@@ -15,7 +15,7 @@ type Truckdetails struct {
 	EmiDuration    string `json:"emi_duration"`
 	TruckRc        string
 	Insurance      string
-	TruckImg       string
+	NpPermit       string
 	NpTax          string
 	QuaterTax      string
 }

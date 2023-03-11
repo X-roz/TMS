@@ -42,6 +42,12 @@ func (h *handler) AddTruckDetails(c echo.Context) error {
 	docbyte, _ := ioutil.ReadAll(fileSorce)
 	json.Unmarshal(docbyte, td)
 	td.User_id = userId
+
+	if td.TruckNo == "" {
+		logger.Error("[AddTruckDetails]", "Enter vaild details ")
+		return response.RespErr(c, "Error vaild details", errors.New("requried details not found"))
+	}
+
 	// verify the truck number. if exists error
 	_, err = h.service.GetTD(td.TruckNo)
 	if err == nil {

@@ -64,6 +64,7 @@
 }
 
 .truck-content button{
+    float: left;
     font-family: Bradley Hand, cursive;
     border-radius: 5px; 
     text-align: center;

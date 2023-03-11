@@ -27,7 +27,7 @@ func FileUpload(c echo.Context, truckno string) (map[string]string, error) {
 		return nil, er
 	}
 
-	var FileDetails = map[string]string{"TruckRc": "", "Insurance": "", "TruckImg": "", "NpTax": "", "QuaterTax": ""}
+	var FileDetails = map[string]string{"TruckRc": "", "Insurance": "", "NpPermit": "", "NpTax": "", "QuaterTax": ""}
 
 	for filename, filepath := range FileDetails {
 		f, er := c.FormFile(filename)
