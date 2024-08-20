@@ -2,6 +2,7 @@ package route
 
 import (
 	"truck-management-service/internals/app/driver"
+	"truck-management-service/internals/app/invoice"
 	"truck-management-service/internals/app/office"
 	"truck-management-service/internals/app/truck"
 	"truck-management-service/internals/app/user"
@@ -14,4 +15,5 @@ func Init(g *echo.Group) {
 	truck.NewHandler().Route(g.Group("/truck"))
 	office.NewHandler().Route(g.Group("/office"))
 	driver.NewHandler().Route(g.Group("/driver"))
+	invoice.NewHandler().Route(g.Group("/invoice"))
 }

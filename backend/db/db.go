@@ -41,6 +41,7 @@ func ConnectToDb() {
 		Db.AutoMigrate(&model.User{})
 		Db.AutoMigrate(&model.Office{})
 		Db.AutoMigrate(&model.Driver{})
+		Db.AutoMigrate(&model.Invoice{})
 	}
 }
 
